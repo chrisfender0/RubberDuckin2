@@ -98,15 +98,18 @@ public class Controller {
 		int columnCount = rsmd.getColumnCount();
 		StringBuilder sb = new StringBuilder();
 		
-		while(rset.next()) {
-			for(int i=1; i<=columnCount; i++) {
-				if(i==1) {
-					sb.append(String.format("%s", rsmd.getColumnName(i)));
-				} else {
-					sb.append(String.format("%20s", rsmd.getColumnName(i)));
-				}
+		
+		for(int i=1; i<=columnCount; i++) {
+			if(i==1) {
+				sb.append(String.format("%20s", rsmd.getColumnName(i)));
+			} else if(rsmd.getColumnName(i).equalsIgnoreCase("address") || 
+					rsmd.getColumnName(i).equalsIgnoreCase("billing_information")) {
+				sb.append(String.format("%40s", rsmd.getColumnName(i)));
+			} else {
+				sb.append(String.format("%30s", rsmd.getColumnName(i)));
 			}
 		}
+	
 		
 		sb.append("\n\n");
 		rset.first();
@@ -115,9 +118,12 @@ public class Controller {
 			
 			for(int i=1; i<=columnCount; i++) {
 				if(i==1) {
-					sb.append(String.format("%s", rset.getString(i)));
-				} else {
 					sb.append(String.format("%20s", rset.getString(i)));
+				} else if(rsmd.getColumnName(i).equalsIgnoreCase("address") ||
+						rsmd.getColumnName(i).equalsIgnoreCase("billing_information")) {
+					sb.append(String.format("%40s", rset.getString(i)));
+				} else {
+					sb.append(String.format("%30s", rset.getString(i)));
 				}
 			}
 			sb.append("\n");
