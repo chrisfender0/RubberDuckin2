@@ -13,6 +13,14 @@ public class View {
 		System.out.println("7. View orders by status");
 	}
 	
+	public void categoryMenu() {
+		System.out.println("Enter a category: ");
+		System.out.println("1. Electronics");
+		System.out.println("2. Clothing ");
+		System.out.println("3. Office Supplies");
+		System.out.println("4. Furniture");
+	}
+	
 	public void viewStringBuilder(StringBuilder sb) {
 		System.out.println(sb);
 	}
