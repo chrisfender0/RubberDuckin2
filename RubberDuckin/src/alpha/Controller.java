@@ -22,6 +22,8 @@ public class Controller {
 	PreparedStatement pstmt = null;
 	ResultSet rset = null;
 	ResultSetMetaData rsmd = null;
+	String userInput = "";
+	BufferedReader br;
 	
 	public Controller(Model model, View view) {
 		this.model = model;
@@ -42,44 +44,47 @@ public class Controller {
 	}
 	
 	private void taskManager() throws IOException, SQLException {
-		view.menuOptions();
-		initConnection();
-		processUserInput();
-		closeResources();
-		closeConnection();
+		while(true) {
+			view.menuOptions();
+			userInput = getUserInput();
+			initConnection();
+			processUserInput();
+		}
 	}
 	
 	private String getUserInput() throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String userInput = br.readLine();
-		br.close();
-		return userInput;
+		br = new BufferedReader(new InputStreamReader(System.in));
+		String strUserInput = br.readLine();
+		return strUserInput;
 	}
 	
-	private void processUserInput() throws IOException, SQLException {
-		int userInput = Integer.parseInt(getUserInput());
-		switch (userInput) {
+	private String processUserInput() throws IOException, SQLException {
+		if(userInput.equalsIgnoreCase("quit") || userInput.equalsIgnoreCase("q")) {
+			view.close();
+			closeResources();
+			System.exit(0);
+		}
+		int parsedUserInput = Integer.parseInt(userInput);
+		switch (parsedUserInput) {
 		case 1: {
 			executeSimpleQuery(model.selectAllFromProduct());
 			view.viewStringBuilder(showResults());
-			closeResources();
 			break;
 		}
 		case 2:{
 			executeSimpleQuery(model.selectAllFromOrders());
 			view.viewStringBuilder(showResults());
-			closeResources();
 			break;
 		}
 		case 3:{
 			executeSimpleQuery(model.selectAllFromCustomers());
 			view.viewStringBuilder(showResults());
-			closeResources();
 			break;
 		}
 		default: 
 			break;
 		}
+		return "";
 	}
 	
 	private void executeSimpleQuery(String str) throws SQLException {
@@ -120,53 +125,9 @@ public class Controller {
 		return sb;
 	}
 	
-//	private StringBuilder showResults() throws SQLException {
-//		int columnCount = rsmd.getColumnCount();
-//		StringBuilder sb = new StringBuilder();
-//		
-//		sb.append("\n");
-//		
-//		while(rset.next()) {
-//			for(int i=1; i<columnCount; i++) {
-//				sb.append(rsmd.getColumnName(i) + "\t");
-//				sb.append(rset.getString(i));
-//				sb.append("\n");
-//			}
-//			sb.append("\n");
-//		}
-//		
-//		return sb;
-//		
-//	}
-	
-	private StringBuilder showResultsTableFormat() throws SQLException {
-		int columnCount = rsmd.getColumnCount();
-		StringBuilder sb = new StringBuilder();
-		
-		for(int i=1; i<columnCount; i++) {
-			sb.append(rsmd.getColumnName(i) + "\t\t");
-		}
-		
-		sb.append("\n*****************************************************************\n");
-		
-		while(rset.next()) {
-			for(int i=1; i<columnCount; i++) {
-				sb.append(String.format("%-5s\t\t", rset.getString(i)));
-			}
-			sb.append("\n");
-		}
-		
-		return sb;
-		
-	}
-	
-	private void closeConnection() throws SQLException {
+	private void closeResources() throws SQLException, IOException {
+		br.close();
 		conn.close();
-	}
-	
-	private void closeResources() throws SQLException {
-		pstmt.close();
-		rset.close();
 	}
 	
 }

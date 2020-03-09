@@ -14,4 +14,8 @@ public class View {
 	public void viewStringBuilder(StringBuilder sb) {
 		System.out.println(sb);
 	}
+	
+	public void close() {
+		System.out.println("Quitting ...");
+	}
 }
