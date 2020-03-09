@@ -85,13 +85,15 @@ public class Controller {
 			break;
 		}
 		case 4:{
-			System.out.println("Enter a product to get its details");
+			System.out.println("Enter a product to get its details:");
 			executeSimpleQuery(model.getProductDetails(getUserInput()));
 			if (resultSetEmpty == false) {
 				view.viewStringBuilder(showResults());
 				resultSetEmpty = true;
 			} else {
-				System.err.println("That product doesn't exist");
+				System.out.println();
+				System.err.println("That product doesn't exist.");
+				System.out.println();
 			}
 			break;
 		}
@@ -99,10 +101,19 @@ public class Controller {
 			System.out.println("Enter an order number:");
 			userInput = getUserInput();
 			executeSimpleQuery(model.selectAllFromOrderDetails(userInput));
-			view.viewStringBuilder(showResults());
+			if (resultSetEmpty == false) {
+				view.viewStringBuilder(showResults());
+				resultSetEmpty = true;
+			} else {
+				System.out.println();
+				System.err.println("That order doesn't exist.");
+				System.out.println();
+			}
 			break;	
 		}
 		default: 
+			System.out.println("Please enter a valid choice.");
+			System.out.println();
 			break;
 		}
 		return "";
