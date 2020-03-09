@@ -21,6 +21,10 @@ public class Model {
 	String selectAllFromOrderDetails(String ui) {
 		return "SELECT * from orderdetails_view where order_number ='" + ui + "'";
 	}
+	
+	String selectOrdersByStatus (String ui) {
+		return "SELECT * from active_view where order_status ='" + ui + "'";
+	}
 }
 	
 
