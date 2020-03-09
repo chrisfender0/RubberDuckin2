@@ -19,7 +19,7 @@ public class Model {
 	}
 	
 	String selectAllFromOrderDetails(String ui) {
-		return "SELECT * FROM orders WHERE order_number= '" + ui + "'";
+		return "SELECT * from orderdetails_view where order_number ='" + ui + "'";
 	}
 }
 	
