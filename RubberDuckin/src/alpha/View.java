@@ -13,6 +13,5 @@ public class View {
 	
 	public void viewStringBuilder(StringBuilder sb) {
 		System.out.println(sb);
-		//this is my method
 	}
 }
