@@ -87,9 +87,11 @@ public class Controller {
 		case 4:{
 			System.out.println("Enter a product to get its details");
 			executeSimpleQuery(model.getProductDetails(getUserInput()));
-			if (!resultSetEmpty) {
+			if (resultSetEmpty == false) {
 				view.viewStringBuilder(showResults());
 				resultSetEmpty = true;
+			} else {
+				System.err.println("That product doesn't exist");
 			}
 			break;
 		}
@@ -114,7 +116,7 @@ public class Controller {
 			rsmd = rset.getMetaData();
 			resultSetEmpty = false;
 		} else {
-			System.err.println("That product doesn't exist");
+			return;
 		}
 		
 		
