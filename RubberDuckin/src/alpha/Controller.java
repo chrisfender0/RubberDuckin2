@@ -59,11 +59,13 @@ public class Controller {
 	}
 	
 	private String processUserInput() throws IOException, SQLException {
+		
 		if(userInput.equalsIgnoreCase("quit") || userInput.equalsIgnoreCase("q")) {
 			view.close();
 			closeResources();
 			System.exit(0);
 		}
+		
 		int parsedUserInput = Integer.parseInt(userInput);
 		switch (parsedUserInput) {
 		case 1: {
