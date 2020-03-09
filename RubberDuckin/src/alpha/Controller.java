@@ -15,6 +15,7 @@ public class Controller {
 	
 	private Model model;
 	private View view;
+	private boolean resultSetEmpty = true;
 	String url = "jdbc:mysql://127.0.0.1:3306/rubberduckin";
 	String user = "default";
 	String pass = "cova";
@@ -85,9 +86,10 @@ public class Controller {
 		}
 		case 4:{
 			System.out.println("Enter a product to get its details");
-			int results = executeSimpleQuery(model.getProductDetails(getUserInput()));
-			if (results == 1) {
+			executeSimpleQuery(model.getProductDetails(getUserInput()));
+			if (!resultSetEmpty) {
 				view.viewStringBuilder(showResults());
+				resultSetEmpty = true;
 			}
 			break;
 		}
@@ -104,17 +106,17 @@ public class Controller {
 		return "";
 	}
 	
-	private int executeSimpleQuery(String str) throws SQLException {
+	private void executeSimpleQuery(String str) throws SQLException {
 		pstmt = conn.prepareStatement(str);
 		pstmt.execute();
 		rset = pstmt.getResultSet();
 		if (rset.last() == true) {
 			rsmd = rset.getMetaData();
-			return 1;
+			resultSetEmpty = false;
 		} else {
 			System.err.println("That product doesn't exist");
 		}
-		return 0;
+		
 		
 	}
 	
