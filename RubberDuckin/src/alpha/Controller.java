@@ -89,6 +89,12 @@ public class Controller {
 			view.viewStringBuilder(showResults());
 			break;
 		}
+		case 5:{
+			System.out.println("Enter an order number:");
+			userInput = getUserInput();
+			executeSimpleQuery(model.selectAllFromOrderDetails(userInput));
+			view.viewStringBuilder(showResults());
+		}
 		default: 
 			break;
 		}

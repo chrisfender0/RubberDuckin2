@@ -17,6 +17,10 @@ public class Model {
 	String getProductDetails(String productName) {
 		return "select * from product_details where name ='" + productName+"'";
 	}
+	
+	String selectAllFromOrderDetails(String ui) {
+		return "SELECT * FROM orders WHERE order_number= '" + ui + "'";
+	}
 }
 	
 
