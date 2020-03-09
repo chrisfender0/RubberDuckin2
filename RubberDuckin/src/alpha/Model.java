@@ -13,6 +13,10 @@ public class Model {
 	String selectAllFromOrders() {
 		return "SELECT * FROM orders";
 	}
+
+	String getProductDetails(String productName) {
+		return "select * from product_details where name ='" + productName+"'";
+	}
 }
 	
 

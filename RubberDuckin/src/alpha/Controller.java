@@ -83,6 +83,12 @@ public class Controller {
 			view.viewStringBuilder(showResults());
 			break;
 		}
+		case 4:{
+			System.out.println("Enter a product to get its details");
+			executeSimpleQuery(model.getProductDetails(getUserInput()));
+			view.viewStringBuilder(showResults());
+			break;
+		}
 		default: 
 			break;
 		}
@@ -114,7 +120,7 @@ public class Controller {
 	
 		
 		sb.append("\n\n");
-		rset.first();
+		rset.beforeFirst();
 		
 		while(rset.next()) {
 			
