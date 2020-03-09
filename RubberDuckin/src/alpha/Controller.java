@@ -153,7 +153,7 @@ public class Controller {
 		case 7: {
 			System.out.println("Enter in status:");
 			userInput = getUserInput();
-			executeSimpleQuery(model.selectOrdersByStatus(userInput));
+			executeSimpleQuery(model.selectAllActiveOrders());
 			if (resultSetEmpty == false) {
 				view.viewStringBuilder(showResults());
 				resultSetEmpty = true;
