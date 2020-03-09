@@ -22,13 +22,14 @@ public class Model {
 		return "SELECT * from orderdetails_view where order_number ='" + ui + "'";
 	}
 	
-	String selectOrdersByStatus (String ui) {
-		return "SELECT * from active_view where order_status ='" + ui + "'";
+	String selectAllActiveOrders () {
+		return "SELECT * from active_view";
 	}
 	
 	String selectProductsFromCategory(String category) {
 		return "select name, unit_price from category_view where category_name ='" + category + "'";
 	}
 }
+
 	
 

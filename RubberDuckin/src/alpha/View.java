@@ -10,7 +10,7 @@ public class View {
 		System.out.println("4. View product details");
 		System.out.println("5. View order details");
 		System.out.println("6. View products by category");
-		System.out.println("7. View orders by status");
+		System.out.println("7. View all active orders");
 	}
 	
 	public void categoryMenu() {
