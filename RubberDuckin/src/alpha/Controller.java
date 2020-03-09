@@ -85,8 +85,10 @@ public class Controller {
 		}
 		case 4:{
 			System.out.println("Enter a product to get its details");
-			executeSimpleQuery(model.getProductDetails(getUserInput()));
-			view.viewStringBuilder(showResults());
+			int results = executeSimpleQuery(model.getProductDetails(getUserInput()));
+			if (results == 1) {
+				view.viewStringBuilder(showResults());
+			}
 			break;
 		}
 		case 5:{
@@ -94,6 +96,7 @@ public class Controller {
 			userInput = getUserInput();
 			executeSimpleQuery(model.selectAllFromOrderDetails(userInput));
 			view.viewStringBuilder(showResults());
+			break;	
 		}
 		default: 
 			break;
@@ -101,11 +104,18 @@ public class Controller {
 		return "";
 	}
 	
-	private void executeSimpleQuery(String str) throws SQLException {
+	private int executeSimpleQuery(String str) throws SQLException {
 		pstmt = conn.prepareStatement(str);
 		pstmt.execute();
 		rset = pstmt.getResultSet();
-		rsmd = rset.getMetaData();
+		if (rset.last() == true) {
+			rsmd = rset.getMetaData();
+			return 1;
+		} else {
+			System.err.println("That product doesn't exist");
+		}
+		return 0;
+		
 	}
 	
 	private StringBuilder showResults() throws SQLException {
