@@ -112,6 +112,42 @@ public class Controller {
 			break;	
 		}
 		case 6: {
+			view.categoryMenu();
+			int catSelection = 0;
+			while (catSelection == 0) {
+				try {
+					catSelection = Integer.parseInt(getUserInput());
+				} catch (NumberFormatException e) {
+					System.err.println("Enter a valid option");
+					view.categoryMenu();
+				} 
+			}
+			switch (catSelection) {
+			case 1:
+				executeSimpleQuery(model.selectProductsFromCategory("Electronics"));
+				System.out.println("\t\t****** Electronics ******");
+				view.viewStringBuilder(showResults());
+				break;
+			case 2:
+				executeSimpleQuery(model.selectProductsFromCategory("Clothing"));
+				System.out.println("\t\t****** Clothing ******");
+				view.viewStringBuilder(showResults());
+				break;
+			case 3:
+				executeSimpleQuery(model.selectProductsFromCategory("Office Supplies"));
+				System.out.println("\t\t****** Office Supplies ******");
+				view.viewStringBuilder(showResults());
+				break;
+			case 4:
+				executeSimpleQuery(model.selectProductsFromCategory("Furniture"));
+				System.out.println("\t\t****** Furniture ******");
+				view.viewStringBuilder(showResults());
+				break;
+
+			default:
+				System.out.println("Enter a valid option");
+				break;
+			}
 			break;
 		}
 		case 7: {
