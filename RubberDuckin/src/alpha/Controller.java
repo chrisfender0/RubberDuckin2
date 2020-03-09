@@ -115,7 +115,17 @@ public class Controller {
 			break;
 		}
 		case 7: {
-			break;
+			System.out.println("Enter in status:");
+			userInput = getUserInput();
+			executeSimpleQuery(model.selectOrdersByStatus(userInput));
+			if (resultSetEmpty == false) {
+				view.viewStringBuilder(showResults());
+				resultSetEmpty = true;
+			} else {
+				System.out.println();
+				System.err.println("This status isn't valid.");
+				System.out.println();
+			}
 		}
 		default: 
 			System.out.println("Please enter a valid choice.");
